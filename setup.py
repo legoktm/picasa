@@ -2,7 +2,7 @@
 picasa
 ----------
 
-subdown2 is a script that automatically downloads all images from a Picasa Web Album.
+picasa-downloader is a script that automatically downloads all images from a Picasa Web Album.
 """
 
 from setuptools import setup, find_packages
