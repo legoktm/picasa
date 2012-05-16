@@ -1,4 +1,4 @@
-picasadownloader
+picasa-downloader
 ============================
 
 A script that automatically downloads all images from a picasa web album.
@@ -6,7 +6,7 @@ A script that automatically downloads all images from a picasa web album.
 ###Installation
 For a stable install run
 ```
-pip install picasadownloader
+pip install picasa-downloader
 ```
 If you wish to run the latest copy out of git
 ```
