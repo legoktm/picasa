@@ -9,17 +9,33 @@ import gdata.photos
 import gdata.photos.service
 
 
-pws = gdata.photos.service.PhotosService()
+
 
 
 
 def main():
+  pws = gdata.photos.service.PhotosService()
+  
   username = sys.argv[1]
   resume = ''
-  if len(sys.argv) == 3:
-    if sys.argv[2].startswith('--resume='):
-      resume = sys.argv[2].split('--resume=')[1]
-
+  username = False
+  password = False
+  force = False
+  for arg in sys.argv:
+    if arg.startswith('--resume='):
+      resume = arg.split('--resume=')[1]
+    if arg.startswith('--username='):
+      username = arg.split('--username=')[1]
+    if arg.startswith('--password='):
+      password = arg.split('--password=')[1]
+    if arg == '--force':
+      force = True
+    
+  if username and password:
+    pws.ClientLogin(username, password)
+    print 'Logged in as %s.' %(username)
+  else:
+    print 'Logged in as anonymous.'
   print 'Grabbing %s\'s photos' %username
   albums = pws.GetUserFeed(user=username).entry
   flag = not bool(resume)
@@ -27,18 +43,19 @@ def main():
     if album.name.text.lower() == resume.lower():
       flag = True
     if flag:
-      process_album(album)
+      process_album(album, force)
     else:
       print 'Skipping %s' %(album.name.text)
     
-def process_album(album):
-  create_dir(album.name.text)
-  print 'Starting %s' %(album.name.text)
+def process_album(album, force):
+  album_name = album.name.text
+  create_dir(album_name)
+  print 'Starting %s' %(album_name)
   photos = pws.GetFeed(album.GetPhotosUri()).entry
   try:
     photo = photos[0]
   except IndexError:
-    print 'No photos in %s' %(album.name.text)
+    print 'No photos in %s' %(album_name)
     return
   gallery_link = str(photo.GetHtmlLink().href)
   text = grab_url(gallery_link)
@@ -50,14 +67,17 @@ def process_album(album):
     split.append(split[5]) #extra item
     split[5] = 's'+object[0]
     url = 'https://' + '/'.join(split)
+    filename = split[6]
+    if os.path.isfile(filename) and (not force):
+      continue
     #print url
     try:
-      download_image(url, album.name.text.lower(), split[6])
+      download_image(url, album_name.lower(), filename)
     except:
       print 'Skipping: Error on %s' %(url)
     print 'Successfully grabbed %s' %(split[6])
     #url_list.append(url)
-  print 'Finished %s' %(album.name.text)
+  print 'Finished %s' %(album_name)
 
 def download_image(url, album, filename):
   img = grab_url(url)
