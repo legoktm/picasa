@@ -8,7 +8,7 @@ subdown2 is a script that automatically downloads all images from a Picasa Web A
 from setuptools import setup, find_packages
 
 setup(
-    name='picasa',
+    name='picasa-downloader',
     version='0.1',
     author='Kunal Mehta',
     author_email='legoktm@gmail.com',
