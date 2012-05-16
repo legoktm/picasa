@@ -1,0 +1,23 @@
+picasadownloader
+============================
+
+A script that automatically downloads all images from a picasa web album.
+
+###Installation
+For a stable install run
+```
+pip install picasadownloader
+```
+If you wish to run the latest copy out of git
+```
+python setup.py install
+```
+###Operation
+Run it by using:
+```
+picasa user_id [--resume=album_name]
+```
+
+ - user_id can either be the user's numeric Google ID or their Gmail address (with '@gmail.com' at the end)
+
+ - The optional resume flag allows you to skip all albums until you reach the album specified.
