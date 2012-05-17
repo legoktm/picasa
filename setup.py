@@ -16,7 +16,7 @@ setup(
     url='https://github.com/legoktm/picasa/',
     license='MIT License',
     description='A script that automatically downloads all images from a Picasa Web Album.',
-    long_description=open('README').read(),
+    long_description=open('README.md').read(),
     install_requires=open('requirements.txt').read().split("\n"),
     package_data={
         '': ['*.txt', '*.md']
