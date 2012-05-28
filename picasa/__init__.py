@@ -63,7 +63,11 @@ def process_album(album, force):
   for object in found:
     split = object[5].split('/')
     split.append(split[5]) #extra item
-    split[5] = 's'+object[0]
+    if int(object[0]) > 2048:
+      size = '2048'
+    else:
+      size = object[0]
+    split[5] = 's'+size
     url = 'https://' + '/'.join(split)
     filename = split[6]
     if os.path.isfile(filename) and (not force):
