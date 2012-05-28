@@ -11,28 +11,26 @@ import gdata.photos.service
 
 
 
-
+pws = gdata.photos.service.PhotosService()
 
 def main():
-  pws = gdata.photos.service.PhotosService()
-  
   username = sys.argv[1]
   resume = ''
-  username = False
-  password = False
+  l_username = False
+  l_password = False
   force = False
   for arg in sys.argv:
     if arg.startswith('--resume='):
       resume = arg.split('--resume=')[1]
     if arg.startswith('--username='):
-      username = arg.split('--username=')[1]
+      l_username = arg.split('--username=')[1]
     if arg.startswith('--password='):
-      password = arg.split('--password=')[1]
+      l_password = arg.split('--password=')[1]
     if arg == '--force':
       force = True
     
-  if username and password:
-    pws.ClientLogin(username, password)
+  if l_username and l_password:
+    pws.ClientLogin(l_username, l_password)
     print 'Logged in as %s.' %(username)
   else:
     print 'Logged in as anonymous.'
