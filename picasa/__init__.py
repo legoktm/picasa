@@ -73,6 +73,8 @@ def process_album(album, force):
     #print url
     try:
       download_image(url, album_name.lower(), filename)
+    except KeyboardInterrupt:
+      sys.exit(1)
     except:
       print 'Skipping: Error on %s' %(url)
     print 'Successfully grabbed %s' %(split[6])
